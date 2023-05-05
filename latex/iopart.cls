@@ -1,13 +1,13 @@
-%% 
+%%
 %% This is file `iopart.cls'
-%% 
-%% This file is distributed in the hope that it will be useful, 
-%% but WITHOUT ANY WARRANTY; without even the implied warranty of 
-%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-%% 
+%%
+%% This file is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%%
 %% Licensed under the LPPL: http://www.latex-project.org/lppl.txt
 %% Current Maintainer: IOP Publishing Ltd
-%% 
+%%
 %% \CharacterTable
 %%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -101,17 +101,17 @@
 %
 % Usage: \title[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \renewcommand{\title}{\@ifnextchar[{\@stitle}{\@ftitle}}
 \def\@stitle[#1]#2{\markboth{#1}{#1}%
     \thispagestyle{myheadings}%
-    \vspace*{3pc}{\exhyphenpenalty=10000\hyphenpenalty=10000 
+    \vspace*{3pc}{\exhyphenpenalty=10000\hyphenpenalty=10000
     \Large\raggedright\noindent
     \bf#2\par}}
 \def\@ftitle#1{\markboth{#1}{#1}%
     \thispagestyle{myheadings}%
-    \vspace*{3pc}{\exhyphenpenalty=10000\hyphenpenalty=10000 
+    \vspace*{3pc}{\exhyphenpenalty=10000\hyphenpenalty=10000
     \Large\raggedright\noindent
     \bf#1\par}}
 %
@@ -123,7 +123,7 @@
 %
 % Usage: \article[Short title]{Article Type}{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \newcommand{\article}{\@ifnextchar[{\@sarticle}{\@farticle}}
 \def\@sarticle[#1]#2#3{\markboth{#1}{#1}%
@@ -160,7 +160,7 @@
 %
 % Usage: \review[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\review{\@ifnextchar[{\@sreview}{\@freview}}
 \def\@sreview[#1]#2{\@sarticle[#1]{Review Article}{#2}}
@@ -170,7 +170,7 @@
 %
 % Usage: \topical[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\topical{\@ifnextchar[{\@stopical}{\@ftopical}}
 \def\@stopical[#1]#2{\@sarticle[#1]{Topical Review}{#2}}
@@ -180,7 +180,7 @@
 %
 % Usage: \comment[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\comment{\@ifnextchar[{\@scomment}{\@fcomment}}
 \def\@scomment[#1]#2{\@sarticle[#1]{Comment}{#2}}
@@ -190,7 +190,7 @@
 %
 % Usage: \rapid[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\rapid{\@ifnextchar[{\@srapid}{\@frapid}}
 \def\@srapid[#1]#2{\@sarticle[#1]{Rapid Communication}{#2}}
@@ -200,7 +200,7 @@
 %
 % Usage: \note[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\note{\@ifnextchar[{\@snote}{\@fnote}}
 \def\@snote[#1]#2{\@sarticle[#1]{Note}{#2}}
@@ -210,7 +210,7 @@
 %
 % Usage: \prelim[Short title]{Full title}
 % [Short title] is optional; use where title is too long
-% or contains footnotes, 50 characters maximum 
+% or contains footnotes, 50 characters maximum
 %
 \def\prelim{\@ifnextchar[{\@sprelim}{\@fprelim}}
 \def\@sprelim[#1]#2{\@sarticle[#1]{Preliminary Communication}{#2}}
@@ -219,7 +219,7 @@
 % List of authors
 %
 % Usage \author[Short form]{List of all authors}
-% The short form excludes footnote symbols linking authors to addresses 
+% The short form excludes footnote symbols linking authors to addresses
 % and is used for running heads in printed version (but not on preprints)
 %
 \renewcommand{\author}{\@ifnextchar[{\@sauthor}{\@fauthor}}
@@ -272,7 +272,7 @@
      \end{indented}}
 %
 % Submission details. If \jl command used journals name printed
-% otherwise Institute of Physics Publishing 
+% otherwise Institute of Physics Publishing
 %
 \def\submitted{\vspace{28pt plus 10pt minus 18pt}
      \noindent{\small\rm Submitted to: {\it \journal}\par}}
@@ -294,16 +294,16 @@
 \def\ackn{\ifletter\bigskip\noindent\ignorespaces\else
     \section*{Acknowledgment}\fi}
 %
-% Footnotes: symbols selected in order \dag (1), \ddag (2), \S (3), 
+% Footnotes: symbols selected in order \dag (1), \ddag (2), \S (3),
 % $\|$ (4), $\P$ (5), $^+$ (6), $^*$ (7), \sharp (8), \dagger\dagger (9)
-% unless optional argument of [<num>] use to specify required symbol, 
+% unless optional argument of [<num>] use to specify required symbol,
 % 1=\dag, 2=\ddag, etc
 % Usage: \footnote{Text of footnote}
 %        \footnote[3]{Text of footnote}
 %
 \def\footnoterule{}%
 \setcounter{footnote}{1}
-\long\def\@makefntext#1{\parindent 1em\noindent 
+\long\def\@makefntext#1{\parindent 1em\noindent
  \makebox[1em][l]{\footnotesize\rm$\m@th{\fnsymbol{footnote}}$}%
  \footnotesize\rm #1}
 \def\@makefnmark{\hbox{${\fnsymbol{footnote}}\m@th$}}
@@ -463,7 +463,7 @@
 \newenvironment{abstract}{%
       \vspace{16pt plus3pt minus3pt}
       \begin{indented}
-      \item[]{\bfseries \abstractname.}\quad\rm\ignorespaces} 
+      \item[]{\bfseries \abstractname.}\quad\rm\ignorespaces}
       {\end{indented}\if@titlepage\newpage\else\vspace{18\p@ plus18\p@}\fi}
 \newenvironment{verse}
                {\let\\=\@centercr
@@ -507,7 +507,7 @@
  \setcounter{equation}{0}
  \setcounter{figure}{0}
  \setcounter{table}{0}
- \def\thesection{Appendix \Alph{section}}   
+ \def\thesection{Appendix \Alph{section}}
  \def\theequation{\ifnumbysec
       \Alph{section}.\arabic{equation}\else
       \Alph{section}\arabic{equation}\fi}  % Comment A\arabic{equation} maybe
@@ -554,7 +554,7 @@
 \setlength\abovecaptionskip{10\p@}
 \setlength\belowcaptionskip{0\p@}
 %
-% Added redefinition of \@caption so captions are not written to 
+% Added redefinition of \@caption so captions are not written to
 % aux file therefore less need to \protect fragile commands
 %
 \long\def\@caption#1[#2]#3{\par\begingroup
@@ -562,8 +562,8 @@
     \normalsize
     \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
   \endgroup}
-% 
-\long\def\@makecaption#1#2{\vskip \abovecaptionskip 
+%
+\long\def\@makecaption#1#2{\vskip \abovecaptionskip
  \begin{indented}
  \item[]{\bf #1.} #2
  \end{indented}\vskip\belowcaptionskip}
@@ -761,14 +761,14 @@
    \labelwidth=0\p@\leftmargin=\mathindent\topsep=0\p@\partopsep=0\p@
    \parsep=0\p@\listparindent=15\p@}\footnotesize\rm}
 
-\let\endindented=\endlist 
+\let\endindented=\endlist
 
 \def\varindent#1{\setlength{\varind}{#1}%
    \list{}{\itemsep=0\p@\labelsep=0\p@\itemindent=0\p@
    \labelwidth=0\p@\leftmargin=\varind\topsep=0\p@\partopsep=0\p@
    \parsep=0\p@\listparindent=15\p@}\footnotesize\rm}
 
-\let\endvarindent=\endlist 
+\let\endvarindent=\endlist
 
 \def\[{\relax\ifmmode\@badmath\else
  \begin{trivlist}
@@ -909,10 +909,10 @@ $$\halign to
 % Tables rules      %
 %%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\boldarrayrulewidth}{1\p@} 
+\newcommand{\boldarrayrulewidth}{1\p@}
 % Width of bold rule in tabular environment.
 
-\def\bhline{\noalign{\ifnum0=`}\fi\hrule \@height  
+\def\bhline{\noalign{\ifnum0=`}\fi\hrule \@height
 \boldarrayrulewidth \futurelet \@tempa\@xhline}
 
 \def\@xhline{\ifx\@tempa\hline\vskip \doublerulesep\fi
@@ -947,7 +947,7 @@ $$\halign to
 \newcommand{\CQG}{{\it Class. Quantum Grav.} }
 \newcommand{\CTM}{{\it Combust. Theory Modelling\/} }
 \newcommand{\DSE}{{\it Distrib. Syst. Engng.\/} }
-\newcommand{\EJP}{{\it Eur. J. Phys.} } 
+\newcommand{\EJP}{{\it Eur. J. Phys.} }
 \newcommand{\JNE}{{\it J. Neural Eng.} } %added 30/11/2004 GMD
 \newcommand{\PB}{{\it Phys. Biol.} } %added 30/11/2004 GMD
 \newcommand{\SMS}{{\it Smart Mater. Struct.} } %added 30/11/2004 GMD
@@ -983,7 +983,7 @@ $$\halign to
 \newcommand{\QO}{{\it Quantum Opt.} }
 \newcommand{\QSO}{{\em Quantum Semiclass. Opt.} }
 \newcommand{\RPP}{{\it Rep. Prog. Phys.} }
-\newcommand{\SLC}{{\it Sov. Lightwave Commun.} }               % added 4/5/93 
+\newcommand{\SLC}{{\it Sov. Lightwave Commun.} }               % added 4/5/93
 \newcommand{\SST}{{\it Semicond. Sci. Technol.} }
 \newcommand{\SUST}{{\it Supercond. Sci. Technol.} }
 \newcommand{\WRM}{{\it Waves Random Media\/} }
@@ -1102,6 +1102,5 @@ $$\halign to
 \raggedbottom
 \onecolumn
 \endinput
-%% 
+%%
 %% End of file `iopart.cls'.
-
