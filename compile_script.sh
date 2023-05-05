@@ -2,15 +2,12 @@
 # compiles the latex report in project 6. Run from /latex/project6/ directory.
 
 ## Specify global variables that are used in this script.
-PROJECT_ID=""
-PROJECT_FOLDERNAME=""
 REPORT_FILENAME="main"
-PATH_TO_STYLEFILES="latex"
-PATH_TO_REPORT_TEX="latex/$PROJECT_FOLDERNAME$PROJECT_ID"
-PATH_TO_REPORT_TEX_FILE="$PATH_TO_REPORT_TEX$REPORT_FILENAME.tex"
+REL_PATH_CONTAINING_MAIN_TEX="latex"
+REL_MAIN_TEX_FILEPATH="$REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME.tex"
 
 OUTPUT_DIR="output"
-OUTPUT_PATH="$PATH_TO_REPORT_TEX$OUTPUT_DIR"
+OUTPUT_PATH="$REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR"
 
 
 ## Specify the functions that are used in this script.
@@ -153,7 +150,7 @@ assert_is_root_dir() {
 
 copy_stylefiles_to_root_dir() {
 	
-	for file_path in "$PATH_TO_STYLEFILES/"*; do
+	for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/"*; do
 		if [ -f "$file_path" ]; then
 			file_name=$(basename -- "$file_path")
 			if [[ "$file_name" != "$REPORT_FILENAME.*" ]]; then
@@ -165,25 +162,27 @@ copy_stylefiles_to_root_dir() {
 }
 
 remove_stylefiles_to_root_dir() {
-	for file_path in "$PATH_TO_STYLEFILES/"*; do
+	for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/"*; do
 		if [ -f "$file_path" ]; then
-			file_name=$(basename -- "$file_path")
-			rm -f "$PWD/$file_name"
+			if [[ "$file_name" != "$REPORT_FILENAME.*" ]]; then
+				file_name=$(basename -- "$file_path")
+				rm -f "$PWD/$file_name"
+			fi
 		fi			
 	done
 }
 
 
 ## Ensure the script is executed from the root directory.
-if [ "$(is_root_dir $PATH_TO_REPORT_TEX_FILE)" == "FOUND" ] ; then
+if [ "$(is_root_dir $REL_MAIN_TEX_FILEPATH)" == "FOUND" ] ; then
 	echo "FOUND"
 else
 	# Get lenght of expected subdir
-	expected_path_length=${#PATH_TO_REPORT_TEX}
-	echo "PATH_TO_REPORT_TEX=$PATH_TO_REPORT_TEX"
-	if [[ "${PWD: -$expected_path_length}" == "$PATH_TO_REPORT_TEX" ]]; then
+	expected_path_length=${#REL_PATH_CONTAINING_MAIN_TEX}
+	echo "REL_PATH_CONTAINING_MAIN_TEX=$REL_PATH_CONTAINING_MAIN_TEX"
+	if [[ "${PWD: -$expected_path_length}" == "$REL_PATH_CONTAINING_MAIN_TEX" ]]; then
 		cd ../..
-		if [ "$(is_root_dir $PATH_TO_REPORT_TEX_FILE)" == "FOUND" ] ; then
+		if [ "$(is_root_dir $REL_MAIN_TEX_FILEPATH)" == "FOUND" ] ; then
 			echo "FOUND"
 		else
 			exit "The script should be able to go up into the root directory with two parents, but it did not."
@@ -198,17 +197,16 @@ fi
 
 ## Create clean output directories
 # Clean up build artifacts prior to compilation.
-rm -r $PATH_TO_REPORT_TEX$OUTPUT_DIR/*
-rm -r $PATH_TO_REPORT_TEX$OUTPUT_DIR
+rm -r $REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR
 
 # Create output directory
-mkdir $OUTPUT_PATH
+mkdir -p $OUTPUT_PATH
 assert_dir_exists $OUTPUT_PATH
 
 # Create relative dir from root to report.tex inside output dir 
 # (for stylefile (for bibliograpy)).
-mkdir -p $OUTPUT_PATH$PATH_TO_REPORT_TEX
-assert_dir_exists $OUTPUT_PATH$PATH_TO_REPORT_TEX
+mkdir -p $OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX
+assert_dir_exists $OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX
 
 # Copy zotero.bib file into output directory
 cp zotero.bib $OUTPUT_PATH/zotero.bib
@@ -219,8 +217,8 @@ copy_stylefiles_to_root_dir
 
 # Copy tudelft-report.bst file into relative directory from root to report.tex
 # file, inside output directory:
-#cp "$PATH_TO_REPORT_TEX/tudelft-report.bst" "$OUTPUT_PATH/$PATH_TO_REPORT_TEX/tudelft-report.bst"
-#assert_file_exists "$OUTPUT_PATH/$PATH_TO_REPORT_TEX/tudelft-report.bst"
+#cp "$REL_PATH_CONTAINING_MAIN_TEX/tudelft-report.bst" "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX/tudelft-report.bst"
+#assert_file_exists "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX/tudelft-report.bst"
 
 
 ## Perform installation of required packages
@@ -240,10 +238,10 @@ echo "COMPILING"
 
 # Compile cover
 #xelatex cover.tex
-#xelatex -output-directory=$OUTPUT_PATH $PATH_TO_REPORT_TEX/cover.tex
+#xelatex -output-directory=$OUTPUT_PATH $REL_PATH_CONTAINING_MAIN_TEX/cover.tex
 
 # Create some files needed for makeindex
-pdflatex -output-directory=$OUTPUT_PATH $PATH_TO_REPORT_TEX/$REPORT_FILENAME
+pdflatex -output-directory=$OUTPUT_PATH $REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME
 
 # Go into output directory to compile the glossaries
 cd $OUTPUT_PATH
@@ -266,20 +264,20 @@ bibtex $REPORT_FILENAME
 
 # Go back up into root directory
 cd ../..
-assert_is_root_dir "$PATH_TO_REPORT_TEX_FILE"
+assert_is_root_dir "$REL_MAIN_TEX_FILEPATH"
 
 
 # Recompile $REPORT_FILENAME to include the bibliography.
 # pdflatex -output-directory=$OUTPUT_PATH latex/project$PROJECT_ID/$REPORT_FILENAME
-pdflatex -output-directory=$OUTPUT_PATH "$PATH_TO_REPORT_TEX_FILE"
+pdflatex -output-directory=$OUTPUT_PATH "$REL_MAIN_TEX_FILEPATH"
 
 # Recompile $REPORT_FILENAME to include acronyms, glossary and nomenclature (in TOC).
-pdflatex -output-directory=$OUTPUT_PATH "$PATH_TO_REPORT_TEX_FILE"
+pdflatex -output-directory=$OUTPUT_PATH "$REL_MAIN_TEX_FILEPATH"
 
 
 ## Post processing/clean-up.
-# Move pdf back into "$PATH_TO_REPORT_TEX.
-mv $OUTPUT_PATH/$REPORT_FILENAME.pdf "$PATH_TO_REPORT_TEX/$REPORT_FILENAME.pdf"
+# Move pdf back into "$REL_PATH_CONTAINING_MAIN_TEX.
+mv $OUTPUT_PATH/$REPORT_FILENAME.pdf "$REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME.pdf"
 
 # Clean up build artifacts.
 rm $OUTPUT_PATH/$REPORT_FILENAME.*
