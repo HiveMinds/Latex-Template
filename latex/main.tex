@@ -1,0 +1,117 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    INSTITUTE OF PHYSICS PUBLISHING                                   %
+%                                                                      %
+%   `Preparing an article for publication in an Institute of Physics   %
+%    Publishing journal using LaTeX'                                   %
+%                                                                      %
+%    LaTeX source code `ioplau2e.tex' used to generate `author         %
+%    guidelines', the documentation explaining and demonstrating use   %
+%    of the Institute of Physics Publishing LaTeX preprint files       %
+%    `iopart.cls, iopart12.clo and iopart10.clo'.                      %
+%                                                                      %
+%    `ioplau2e.tex' itself uses LaTeX with `iopart.cls'                %
+%                                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+% First we have a character check
+%
+% ! exclamation mark    " double quote  
+% # hash                ` opening quote (grave)
+% & ampersand           ' closing quote (acute)
+% $ dollar              % percent       
+% ( open parenthesis    ) close paren.  
+% - hyphen              = equals sign
+% | vertical bar        ~ tilde         
+% @ at sign             _ underscore
+% { open curly brace    } close curly   
+% [ open square         ] close square bracket
+% + plus sign           ; semi-colon    
+% * asterisk            : colon
+% < open angle bracket  > close angle   
+% , comma               . full stop
+% ? question mark       / forward slash 
+% \ backslash           ^ circumflex
+%
+% ABCDEFGHIJKLMNOPQRSTUVWXYZ 
+% abcdefghijklmnopqrstuvwxyz 
+% 1234567890
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass[12pt]{iopart}
+\newcommand{\gguide}{{\it Preparing graphics for IOP Publishing journals}}
+%Uncomment next line if AMS fonts required
+%\usepackage{iopams}  
+
+%%%%%%%%%%%%%%%%%%%%%%%Start Customisation%%%%%%%%%%%%%%%%%%%%%%%%%
+% Determine whether it is local compilation or overleaf compilation
+\makeatletter
+\begingroup\endlinechar=-1\relax
+       \everyeof{\noexpand}%
+       \edef\x{\endgroup\def\noexpand\homepath{%
+         \@@input|"kpsewhich --var-value=HOME" }}\x
+\makeatother
+\def\overleafhome{/tmp}% change as appropriate
+
+% Include algorithm.
+\usepackage{cleveref}
+
+%%%%%%%%%%%%%%%%%%%%%%%End  Customisation%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+\title[Author guidelines for IOP Publishing journals in  \LaTeXe]{How to prepare and submit an article for 
+publication in an IOP Publishing journal using \LaTeXe}
+
+\author{Content \& Services Team}
+
+\address{IOP Publishing, Temple Circus, Temple Way, Bristol BS1 6HG, UK}
+\ead{submissions@iop.org}
+\vspace{10pt}
+\begin{indented}
+\item[]August 2017
+\end{indented}
+
+\ifx\homepath\overleafhome
+  % Overleaf compilation.
+  \input{chapters/0_abstract}
+\else
+  % Local compilation
+  \input{latex/chapters/0_abstract}
+\fi
+
+\ifx\homepath\overleafhome % Overleaf compilation.
+  \input{chapters/1_intro}
+  \input{chapters/2_methodology.tex}
+  \input{chapters/3_results.tex}
+  \input{chapters/4_discussion.tex}
+  \input{chapters/5_conclusion.tex}
+  \input{chapters/6_recommendation.tex}
+  %\input{chapters/7_acknowledgements.tex}
+\else % Local compilation
+  %\input{latex/project11/chapters/0_abstract}
+  \input{latex/chapters/1_intro}
+  \input{latex/chapters/2_methodology.tex}
+  \input{latex/chapters/3_results.tex}
+  \input{latex/chapters/4_discussion.tex}
+  \input{latex/chapters/5_conclusion.tex}
+  \input{latex/chapters/6_recommendation.tex}
+  %\input{latex/project11/chapters/7_acknowledgments.tex}
+\fi
+
+
+%%
+%% The next two lines define the bibliography style to be used, and
+%% the bibliography file.
+\bibliographystyle{ACM-Reference-Format}
+%\bibliography{sample-base}
+\bibliography{zotero}
+
+%%
+%% If your work has an appendix, this is the place to put it.
+\appendix
+
+\end{document}
+

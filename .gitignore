@@ -1,0 +1,4 @@
+*.log
+latex/main.pdf
+
+latex/output/*
