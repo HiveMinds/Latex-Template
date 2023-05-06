@@ -23,38 +23,7 @@ prepare_output_dir
 ## Compiling latex project.
 echo "COMPILING"
 
-# Create some files needed for makeindex
-pdflatex -output-directory="$OUTPUT_PATH $REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME"
-
-# Go into output directory to compile the glossaries
-cd "$OUTPUT_PATH" || exit 6
-assert_current_directory_is_output_dir "$OUTPUT_PATH"
-
-# Compiling from root directory files
-makeindex $REPORT_FILENAME.nlo -s nomencl.ist -o $REPORT_FILENAME.nls
-
-# Glossary
-#makeindex -s $REPORT_FILENAME.ist -t $REPORT_FILENAME.glg -o $REPORT_FILENAME.gls $REPORT_FILENAME.glo
-
-# List of acronyms
-#makeindex -s $REPORT_FILENAME.ist -t $REPORT_FILENAME.alg -o $REPORT_FILENAME.acr $REPORT_FILENAME.acn
-
-# Include glossary into $REPORT_FILENAME.
-#makeglossaries $REPORT_FILENAME
-
-# Compile bibliography.
-bibtex $REPORT_FILENAME
-
-# Go back up into root directory
-cd ../..
-assert_is_root_dir "$REL_MAIN_TEX_FILEPATH"
-
-# Recompile $REPORT_FILENAME to include the bibliography.
-# pdflatex -output-directory=$OUTPUT_PATH latex/project$PROJECT_ID/$REPORT_FILENAME
-pdflatex -output-directory=$OUTPUT_PATH "$REL_MAIN_TEX_FILEPATH"
-
-# Recompile $REPORT_FILENAME to include acronyms, glossary and nomenclature (in TOC).
-pdflatex -output-directory=$OUTPUT_PATH "$REL_MAIN_TEX_FILEPATH"
+compile_latex_into_pdf
 
 ## Post processing/clean-up.
 # Move pdf back into "$REL_PATH_CONTAINING_MAIN_TEX.
