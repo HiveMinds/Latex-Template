@@ -44,22 +44,9 @@ assert_initial_path() {
   if [ "$(is_root_dir "$REL_MAIN_TEX_FILEPATH")" == "FOUND" ]; then
     echo "FOUND"
   else
-    # Get length of expected subdir
-    expected_path_length=${#REL_PATH_CONTAINING_MAIN_TEX}
-    echo "REL_PATH_CONTAINING_MAIN_TEX=$REL_PATH_CONTAINING_MAIN_TEX"
-    if [[ "${PWD: -$expected_path_length}" == "$REL_PATH_CONTAINING_MAIN_TEX" ]]; then
-      cd ../..
-      if [ "$(is_root_dir $REL_MAIN_TEX_FILEPATH)" == "FOUND" ]; then
-        echo "FOUND"
-      else
-        echo "The script should be able to go up into the root directory with two parents, but it did not."
-        exit 20
-      fi
-    else
-      echo "You are calling this script from the wrong directory."
-      echo "PWD=$PWD"
-      echo "Expected path towards main.tex is:$REL_MAIN_TEX_FILEPATH"
-      exit 21
-    fi
+    echo "You are calling this script from the wrong directory."
+    echo "Expected path towards main.tex is:"
+    echo "$PWD/$REL_MAIN_TEX_FILEPATH"
+    exit 21
   fi
 }
