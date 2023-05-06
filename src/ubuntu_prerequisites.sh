@@ -55,7 +55,6 @@ prepare_output_dir() {
   ## Create clean output directories
   # Clean up build artifacts prior to compilation.
   rm -r -f "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/:?}"
-  #rm -r -f "$REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/"
 
   # Create output directory
   mkdir -p "$OUTPUT_PATH"
