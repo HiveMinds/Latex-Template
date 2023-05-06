@@ -56,6 +56,18 @@
 
 % Include algorithm.
 \usepackage{cleveref}
+\ifx\homepath\overleafhome
+    % Overleaf compilation.
+  \usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=ynt
+  ]{biblatex}
+  \addbibresource{zotero.bib}
+\else
+  % Local compilation
+  \usepackage{cite}
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%End  Customisation%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -101,14 +113,24 @@ publication in an IOP Publishing journal using \LaTeXe}
   %\input{latex/project11/chapters/7_acknowledgments.tex}
 \fi
 
-\Cref{aimone_provable_2021}
+\cite{aimone_provable_2021}
 
 %%
 %% The next two lines define the bibliography style to be used, and
 %% the bibliography file.
-\bibliographystyle{ACM-Reference-Format}
+%\bibliographystyle{ACM-Reference-Format}
 %\bibliography{sample-base}
-\bibliography{zotero}
+
+\ifx\homepath\overleafhome
+  % Overleaf compilation.
+  % \bibliography{zotero.bib}
+  \printbibliography
+\else
+  % Local compilation
+  \bibliographystyle{plain}
+  \bibliography{zotero.bib}
+
+\fi
 
 %%
 %% If your work has an appendix, this is the place to put it.

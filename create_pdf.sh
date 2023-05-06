@@ -21,5 +21,5 @@ assert_os_is_supported
 install_prerequisites ""
 assert_initial_path
 prepare_output_dir
-compile_latex_into_pdf "true" "false"
+compile_latex_into_pdf "false" "false"
 postprocess

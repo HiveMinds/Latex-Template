@@ -39,13 +39,23 @@ compile_latex_into_pdf() {
   if [[ "$verbose_commands" == "true" ]]; then
     bibtex "$REPORT_FILENAME"
   else
-    bibtex "$REPORT_FILENAME" >/dev/null 2>&1
+    local output_that_also_captures_error
+    output_that_also_captures_error=$(bibtex "$REPORT_FILENAME" 2>&1)
   fi
-  # shellcheck disable=SC2181
-  if [[ "$?" != 0 ]] && [[ "$ignore_bibtex" != "true" ]]; then
-    bibtex "$REPORT_FILENAME"
-    yellow_msg "Error, compilation error occurred in bibtex command:"
-    exit 4
+  # Check for warnings and print them.
+  if [[ "$(command_output_contains "arning" "$output_that_also_captures_error")" == "FOUND" ]]; then
+    if [[ "$ignore_bibtex" != "true" ]]; then
+      bibtex "$REPORT_FILENAME"
+      yellow_msg "Warning, compilation warning occurred in bibtex command:" "true"
+    fi
+  fi
+  # Check for errors and print them.
+  if [[ "$(command_output_contains "rror" "$output_that_also_captures_error")" == "FOUND" ]]; then
+    if [[ "$ignore_bibtex" != "true" ]]; then
+      bibtex "$REPORT_FILENAME"
+      red_msg "Error, compilation error occurred in bibtex command:" "true"
+      exit 4
+    fi
   fi
 
   # Go back up into root directory
