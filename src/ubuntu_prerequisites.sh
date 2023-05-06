@@ -70,5 +70,6 @@ prepare_output_dir() {
   assert_file_exists "$OUTPUT_PATH/zotero.bib"
 
   # Copy the stylefiles to the root directory.
-  copy_stylefiles_to_root_dir
+  copy_stylefiles_to_target_dir "$OUTPUT_PATH/"
+
 }

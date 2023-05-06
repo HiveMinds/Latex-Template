@@ -134,25 +134,28 @@ assert_is_root_dir() {
   fi
 }
 
-copy_stylefiles_to_root_dir() {
+copy_stylefiles_to_target_dir() {
+  local abs_target_dir="$1"
+  assert_dir_exists "$abs_target_dir"
 
   for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/"*; do
     if [ -f "$file_path" ]; then
       file_name=$(basename -- "$file_path")
       if [[ "$file_name" != "$REPORT_FILENAME.*" ]]; then
-        cp "$PWD/$file_path" "$PWD/$file_name"
-        assert_file_exists "$PWD/$file_name"
+        cp "$PWD/$file_path" "$abs_target_dir/$file_name"
+        assert_file_exists "$abs_target_dir/$file_name"
       fi
     fi
   done
 }
 
-remove_stylefiles_to_root_dir() {
+remove_stylefiles_from_target_dir() {
+  local abs_target_dir="$1"
   for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/"*; do
     if [ -f "$file_path" ]; then
       if [[ "$file_name" != "$REPORT_FILENAME.*" ]]; then
         file_name=$(basename -- "$file_path")
-        rm -f "$PWD/$file_name"
+        rm -f "$abs_target_dir/$file_name"
       fi
     fi
   done
