@@ -3,6 +3,7 @@
 
 source src/cli_logging.sh
 source src/helper_dir_and_files.sh
+source src/helper_postprocessing.sh
 source src/helper_tex_to_pdf.sh
 source src/install_apt.sh
 source src/ubuntu_prerequisites.sh
@@ -21,13 +22,4 @@ install_prerequisites ""
 assert_initial_path
 prepare_output_dir
 compile_latex_into_pdf "true" "false"
-
-## Post processing/clean-up.
-# Move pdf back into "$REL_PATH_CONTAINING_MAIN_TEX.
-mv $OUTPUT_PATH/$REPORT_FILENAME.pdf "$REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME.pdf"
-
-# Clean up build artifacts.
-rm $OUTPUT_PATH/$REPORT_FILENAME.*
-
-# Clean up style files.
-remove_stylefiles_from_target_dir "$OUTPUT_PATH/"
+postprocess
