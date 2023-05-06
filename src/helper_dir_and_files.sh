@@ -99,9 +99,8 @@ assert_current_directory_is_output_dir() {
 #  NOTFOUND if the report.tex exists at the expected relative position.
 #######################################
 is_root_dir() {
-  local path_to_report_tex_file="$1"
-  read -p "path_to_report_tex_file=$PWD/$path_to_report_tex_file"
-  if [ -f "$PWD/$path_to_report_tex_file" ]; then
+  local abs_path_to_report_tex_file="$1"
+  if [ -f "$abs_path_to_report_tex_file" ]; then
     echo "FOUND"
   else
     echo "NOTFOUND"

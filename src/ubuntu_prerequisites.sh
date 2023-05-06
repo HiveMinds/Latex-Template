@@ -41,7 +41,7 @@ install_prerequisites() {
 
 assert_initial_path() {
   ## Ensure the script is executed from the root directory.
-  if [ "$(is_root_dir "$REL_MAIN_TEX_FILEPATH")" == "FOUND" ]; then
+  if [ "$(is_root_dir "$PWD/$REL_MAIN_TEX_FILEPATH")" == "FOUND" ]; then
     echo "FOUND"
   else
     echo "You are calling this script from the wrong directory."
@@ -49,4 +49,28 @@ assert_initial_path() {
     echo "$PWD/$REL_MAIN_TEX_FILEPATH"
     exit 21
   fi
+}
+
+prepare_output_dir() {
+  ## Create clean output directories
+  # Clean up build artifacts prior to compilation.
+  #rm -r "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR:?/}"
+  rm -r "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/}"
+  read -p "still there?"
+
+  # Create output directory
+  mkdir -p "$OUTPUT_PATH"
+  assert_dir_exists "$OUTPUT_PATH"
+
+  # Create relative dir from root to report.tex inside output dir
+  # (for stylefile (for bibliograpy)).
+  mkdir -p "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX"
+  assert_dir_exists "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX"
+
+  # Copy zotero.bib file into output directory
+  cp zotero.bib "$OUTPUT_PATH/zotero.bib"
+  assert_file_exists "$OUTPUT_PATH/zotero.bib"
+
+  # Copy the stylefiles to the output directory.
+  copy_stylefiles_to_root_dir
 }

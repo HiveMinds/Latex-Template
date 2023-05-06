@@ -18,26 +18,8 @@ OUTPUT_PATH="$REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR"
 assert_os_is_supported
 install_prerequisites
 assert_initial_path
+prepare_output_dir
 
-## Create clean output directories
-# Clean up build artifacts prior to compilation.
-rm -r "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR:?/}"
-
-# Create output directory
-mkdir -p "$OUTPUT_PATH"
-assert_dir_exists "$OUTPUT_PATH"
-
-# Create relative dir from root to report.tex inside output dir
-# (for stylefile (for bibliograpy)).
-mkdir -p "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX"
-assert_dir_exists "$OUTPUT_PATH/$REL_PATH_CONTAINING_MAIN_TEX"
-
-# Copy zotero.bib file into output directory
-cp zotero.bib "$OUTPUT_PATH/zotero.bib"
-assert_file_exists "$OUTPUT_PATH/zotero.bib"
-
-# Copy the stylefiles to the output directory.
-copy_stylefiles_to_root_dir
 
 ## Compiling latex project.
 echo "COMPILING"
