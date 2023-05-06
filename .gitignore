@@ -1,9 +1,10 @@
 
 # Ignore latex compilation artifacts.
 latex/output/*
-*.sty
-*.cls
-*.clo
+
+# *.sty
+# *.cls
+# *.clo
 *.aux
 *.log
 *.pdf
