@@ -54,9 +54,8 @@ assert_initial_path() {
 prepare_output_dir() {
   ## Create clean output directories
   # Clean up build artifacts prior to compilation.
-  #rm -r "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR:?/}"
-  rm -r "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/}"
-  read -p "still there?"
+  rm -r -f "${REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/:?}"
+  #rm -r -f "$REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR/"
 
   # Create output directory
   mkdir -p "$OUTPUT_PATH"
@@ -71,6 +70,6 @@ prepare_output_dir() {
   cp zotero.bib "$OUTPUT_PATH/zotero.bib"
   assert_file_exists "$OUTPUT_PATH/zotero.bib"
 
-  # Copy the stylefiles to the output directory.
+  # Copy the stylefiles to the root directory.
   copy_stylefiles_to_root_dir
 }

@@ -1,4 +1,10 @@
-*.log
-latex/main.pdf
+# Ignore everything unless it already is in the git.
+*
 
-latex/output/*
+!**.sh
+!**.tex
+!**.yaml
+
+#latex/main.pdf
+
+#latex/output/*

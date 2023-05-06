@@ -16,17 +16,12 @@ OUTPUT_DIR="output"
 OUTPUT_PATH="$REL_PATH_CONTAINING_MAIN_TEX/$OUTPUT_DIR"
 
 assert_os_is_supported
-install_prerequisites
+install_prerequisites ""
 assert_initial_path
 prepare_output_dir
 
-
 ## Compiling latex project.
 echo "COMPILING"
-
-# Compile cover
-#xelatex cover.tex
-#xelatex -output-directory=$OUTPUT_PATH $REL_PATH_CONTAINING_MAIN_TEX/cover.tex
 
 # Create some files needed for makeindex
 pdflatex -output-directory="$OUTPUT_PATH $REL_PATH_CONTAINING_MAIN_TEX/$REPORT_FILENAME"
