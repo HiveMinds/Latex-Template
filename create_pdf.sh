@@ -3,9 +3,10 @@
 
 source src/cli_logging.sh
 source src/helper_dir_and_files.sh
+source src/helper_tex_to_pdf.sh
 source src/install_apt.sh
-source src/uninstall_apt.sh
 source src/ubuntu_prerequisites.sh
+source src/uninstall_apt.sh
 
 ## Specify global variables that are used in this script.
 REPORT_FILENAME="main"
@@ -19,11 +20,7 @@ assert_os_is_supported
 install_prerequisites ""
 assert_initial_path
 prepare_output_dir
-
-## Compiling latex project.
-echo "COMPILING"
-
-compile_latex_into_pdf
+compile_latex_into_pdf "true" "false"
 
 ## Post processing/clean-up.
 # Move pdf back into "$REL_PATH_CONTAINING_MAIN_TEX.

@@ -22,7 +22,7 @@ os_is_supported() {
 
 assert_os_is_supported() {
   if [[ "$(os_is_supported)" != "FOUND" ]]; then
-    echo "Error, os:$OSTYPE is not (yet) supported, please help build support."
+    red_msg "Error, os:$OSTYPE is not (yet) supported, please help build support." "true"
     exit 5
   fi
 }
@@ -41,9 +41,7 @@ install_prerequisites() {
 
 assert_initial_path() {
   ## Ensure the script is executed from the root directory.
-  if [ "$(is_root_dir "$PWD/$REL_MAIN_TEX_FILEPATH")" == "FOUND" ]; then
-    echo "FOUND"
-  else
+  if [ "$(is_root_dir "$PWD/$REL_MAIN_TEX_FILEPATH")" != "FOUND" ]; then
     echo "You are calling this script from the wrong directory."
     echo "Expected path towards main.tex is:"
     echo "$PWD/$REL_MAIN_TEX_FILEPATH"

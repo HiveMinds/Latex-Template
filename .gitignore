@@ -1,10 +1,14 @@
-# Ignore everything unless it already is in the git.
-*
 
+# Ignore latex compilation artifacts.
+latex/output/*
+*.sty
+*.cls
+*.clo
+*.aux
+*.log
+*.pdf
+
+# Do not ignore files with these extensions:
 !**.sh
 !**.tex
 !**.yaml
-
-#latex/main.pdf
-
-#latex/output/*

@@ -36,7 +36,7 @@ verify_apt_installed() {
 
   # Throw error if apt package is not yet installed.
   if [[ "$(apt_package_is_installed "$apt_package_name")" != "FOUND" ]]; then
-    red_msg "Error, the apt package ${apt_package_name} is not installed."
+    red_msg "Error, the apt package ${apt_package_name} is not installed." "true"
     exit 3 # TODO: update exit status.
   else
     green_msg "Verified apt package ${apt_package_name} is installed."

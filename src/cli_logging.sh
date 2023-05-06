@@ -15,14 +15,18 @@ function reset_color() {
 # Takes the message to be printed and the name of the color to be set
 # and then reset the default terminal color.
 function colored_msg() {
-  local msg=${1}
+  local msg="$1"
   local color=${2}
   local force_verbose="$3"
 
   if [[ "$VERBOSE" == "true" ]] || [[ "$force_verbose" == "true" ]]; then
     printf "==========================\\n"
     change_color "$color"
-    printf '%s' "$msg"
+    IFS='&' read -r -a array <<<"$msg"
+    for element in "${array[@]}"; do
+      echo "$element"
+      #printf '%s' "$element"
+    done
     reset_color
     printf "\n==========================\\n\\n"
   fi

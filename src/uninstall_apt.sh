@@ -37,7 +37,7 @@ verify_apt_removed() {
   if [[ "$(apt_package_is_installed "$apt_package_name")" == "NOTFOUND" ]]; then
     green_msg "Verified the apt package ${apt_package_name} is removed."
   else
-    red_msg "Error, the apt package ${apt_package_name} is still installed."
+    red_msg "Error, the apt package ${apt_package_name} is still installed." "true"
     exit 3 # TODO: update exit status.
   fi
 }

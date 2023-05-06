@@ -17,9 +17,7 @@
 #######################################
 assert_dir_exists() {
   local dir=$1
-  if [ -d "$dir" ]; then
-    echo "FOUND"
-  else
+  if [ ! -d "$dir" ]; then
     echo "The directory:$dir does not exist."
     exit 4
   fi
@@ -41,9 +39,7 @@ assert_dir_exists() {
 #######################################
 assert_file_exists() {
   local filepath=$1
-  if [ -f "$filepath" ]; then
-    echo "FOUND"
-  else
+  if [ ! -f "$filepath" ]; then
     echo "The file:$filepath does not exist."
     exit 4
   fi
@@ -73,10 +69,8 @@ assert_current_directory_is_output_dir() {
 
   local current_path=$PWD
   local last_characters_of_current_path=${current_path:(-$output_path_length)}
-  if [[ "$last_characters_of_current_path" == "$output_path" ]]; then
-    echo "FOUND"
-  else
-    echo "ERROR, the last characters of current path:$last_characters_of_current_path is not equal to the output path:$output_path"
+  if [[ "$last_characters_of_current_path" != "$output_path" ]]; then
+    red_msg "Error, the last characters of current path:$last_characters_of_current_path is not equal to the output path:$output_path" "true"
     exit 5
   fi
 }
@@ -125,11 +119,9 @@ is_root_dir() {
 #  FOUND if the report.tex exists at the expected relative position.
 #######################################
 assert_is_root_dir() {
-  local path_to_report_tex_file="$1"
-  if [ -f "$path_to_report_tex_file" ]; then
-    echo "FOUND"
-  else
-    echo "ERROR, the current path:$PWD is not the root directory."
+  local abs_path_to_report_tex_file="$1"
+  if [ ! -f "$abs_path_to_report_tex_file" ]; then
+    red_msg "Error, the current path:$PWD is not the root directory." "true"
     exit 6
   fi
 }
