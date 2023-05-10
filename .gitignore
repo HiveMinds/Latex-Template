@@ -1,6 +1,8 @@
 
 # Ignore latex compilation artifacts.
 latex/output/*
+University-LaTex-Templates/*
+University*
 
 # *.sty
 # *.cls
