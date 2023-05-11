@@ -157,7 +157,6 @@ copy_images_to_target_dir() {
   local abs_target_dir="$1"
   mkdir -p "$abs_target_dir"
   assert_dir_exists "$abs_target_dir"
-  
 
   for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/Images/"*; do
     if [ -f "$file_path" ]; then

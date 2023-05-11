@@ -22,7 +22,7 @@ target_main="latex/main.tex"
 source_wordlists="Wordlists"
 target_wordlists="latex/Wordlists"
 
-# source src/get_template.sh && get_template 
+# source src/get_template.sh && get_template
 # source src/get_template.sh && get_template presentations radboud_university
 get_template() {
   local template_type="$1"
