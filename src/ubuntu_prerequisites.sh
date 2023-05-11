@@ -75,4 +75,7 @@ prepare_output_dir() {
   # Copy the stylefiles to the root directory.
   copy_stylefiles_to_target_dir "$OUTPUT_PATH/"
 
+
+  # Copy the stylefiles to the root directory.
+  copy_images_to_target_dir "$OUTPUT_PATH/Images/"
 }
