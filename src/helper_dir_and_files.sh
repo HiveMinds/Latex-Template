@@ -153,6 +153,26 @@ remove_stylefiles_from_target_dir() {
   done
 }
 
+copy_images_to_target_dir() {
+  local abs_target_dir="$1"
+  mkdir -p "$abs_target_dir"
+  assert_dir_exists "$abs_target_dir"
+  
+
+  for file_path in "$REL_PATH_CONTAINING_MAIN_TEX/Images/"*; do
+    if [ -f "$file_path" ]; then
+      file_name=$(basename -- "$file_path")
+      if [[ "$file_name" != "$REPORT_FILENAME.*" ]]; then
+        cp "$PWD/$file_path" "$abs_target_dir/$file_name"
+        assert_file_exists "$abs_target_dir/$file_name"
+      fi
+    elif [ -d "$file_path" ]; then
+      cp -r "$PWD/$file_path" "$abs_target_dir"
+      assert_dir_exists "$abs_target_dir"
+    fi
+  done
+}
+
 command_output_contains() {
   local substring="$1"
   shift
